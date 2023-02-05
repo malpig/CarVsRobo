@@ -1,0 +1,11 @@
+	Car vs Robo
+
+w or up arrow - accelerate forward
+s or down arrow - accelerate backward
+a or left arrow - turn left
+d or right arrow - turn right
+h or space - fire
+p - pause
+
+Avoid enemy fire.
+Get to the eyeball teleporter.

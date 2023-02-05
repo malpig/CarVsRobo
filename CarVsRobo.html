@@ -1,0 +1,59 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .header {
+            border: 1px solid red;
+            padding: 15px;
+        }
+
+        .menu {
+            width: 100%;
+            float: top;
+            padding: 3px;
+            border: none;
+        }
+
+        .main {
+            width: 100%;
+            float: bottom;
+            padding: 5px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu">
+        <button id="gob">go</button>
+        <button id="res">reset level</button>
+    </div>
+
+    <div class="main">
+        <canvas width=360 height=360></canvas>
+    </div>
+
+    <script src="maps.js"></script>
+    <script src="CarVsRobo.js"></script>
+
+    <script>
+        instructions = document.createElement("img");
+        instructions.src = "instructions.jpg";
+        document.createElement("canvas");
+        const canvas=document.querySelector("canvas");
+        const context=canvas.getContext("2d");
+        canvas.addEventListener('mousedown',md);
+        document.getElementById("gob").addEventListener('click',gopig);
+        document.getElementById("res").addEventListener('click',resetLevel);
+        context.fillStyle=`rgb(200,200,200)`;
+        context.fillRect(0,0,canvas.width,canvas.height);
+        drawinstructions();
+    </script>
+</body>
+</html>
