@@ -16,6 +16,12 @@ var rect=[],circ=[];
 var bolt=[];
 var boltReadyTime=0;
 var wmap={carx0:0, cary0:0, cardir0:0, robox0:[], roboy0:[], goalx:0, goaly:0, wall:[], treeArea:[], treeOrHut:0};
+var score = 0;
+var startTime=0;
+var cTime=0;
+var seconds=0;
+var seconds2=0;
+
 
 function drawinstructions()
 {
@@ -54,6 +60,11 @@ function resetLevel(event)
 
 }
 
+function changeScore(x)
+{
+    score += x;
+    document.getElementById("scobo").innerHTML=`Score: ${score}`;
+}
 function win()
 {
     soundOfLife.play();
@@ -68,6 +79,11 @@ function win()
         car.vx=0;
         car.vy=0;
     }
+    changeScore(20);
+    startTime=Math.floor(Date.now()/1000);
+    seconds=0;
+    seconds2=0;
+
 }
 function lose()
 {
@@ -745,6 +761,7 @@ function carHit()
         car.unPauseT=Date.now()+1000;
         car.vx=0;
         car.vy=0;
+        changeScore(-10);
     }
 }
 function boltPos()
@@ -826,6 +843,7 @@ function boltPos()
                     robo[k].notActive=3000+Date.now();
 		    	    robo[k].x=wmap.robox0[k];
 			        robo[k].y=wmap.roboy0[k];
+                    changeScore(5);
                 }
 		    }
         }
@@ -851,6 +869,7 @@ function createBolt(wbolt)
 	    if(wpow>=5)
 		    wpow=0;
 	    powsound[wpow].play();
+        changeScore(-1);
     }
 }
 function createRoboBolt(k)
@@ -929,6 +948,18 @@ function animate()
 
 	    boltPos();
 
+        cTime=Math.floor(Date.now()/1000);
+        if(cTime-startTime>seconds)
+        {
+            seconds=cTime-startTime;
+            document.getElementById("time").innerHTML=`Time: ${seconds}`;
+            seconds2++
+        }
+        if(seconds2>30)
+        {
+            seconds2=0;
+            changeScore(-10)
+        }
 
 	    context.strokeStyle='rgb(255,0,0)';
         for(let i=0; i<wmap.wall.length; i++)
@@ -1137,5 +1168,8 @@ function gopig(event)
 	document.body.appendChild(soundOfLife);
     iniCircles();
     soundOfLife.play();
+    startTime=Math.floor(Date.now()/1000);
+    seconds=0;
+    seconds2=0;
 	animate();
 }
